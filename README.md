@@ -1,4 +1,4 @@
-## Cmdx
+## Cmdfix
 
 Allow user-defined commands to be typed lowercase in command line mode.
 
