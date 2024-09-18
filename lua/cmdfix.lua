@@ -5,7 +5,7 @@ M.commands = {}
 M.config = {}
 M.config_defaults = {
 	enabled = true,
-	threshold = 1,
+	threshold = 2,
 	ignore = {},
 	aliases = {},
 }
