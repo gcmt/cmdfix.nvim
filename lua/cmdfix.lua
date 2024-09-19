@@ -2,6 +2,7 @@ local M = {}
 local plugin_name = "cmdfix"
 
 M.commands = {}
+M.ignored = {}
 M.config = {}
 M.config_defaults = {
 	enabled = true,
@@ -14,15 +15,15 @@ M.config_defaults = {
 -- Skip all ignored commands and setup aliases
 M.discover_commands = function()
 	M.commands = {}
-	local ignore = {}
+	M.ignored = {}
 	for _, v in pairs(M.config.ignore) do
-		ignore[v] = true
+		M.ignored[v] = true
 	end
 	for _, cmd in pairs(vim.fn.getcompletion("", "command")) do
-		if M.config.aliases[cmd] ~= nil then
+		if M.config.aliases[cmd] then
 			M.commands[M.config.aliases[cmd]] = cmd
 		end
-		if ignore[cmd] == nil and string.match(cmd, "^%u") then
+		if not M.ignored[cmd] and string.match(cmd, "^%u") then
 			M.commands[string.lower(cmd)] = cmd
 		end
 	end
@@ -44,13 +45,23 @@ local function fix_cmdline()
 		return
 	end
 	local raw = cmdline[1]
-	local cmd = string.match(raw, "%a+")
-	if cmd == nil or #cmd < M.config.threshold then
+	local startpos, endpos = string.find(raw, "%a+", 1, false)
+	if not startpos then
 		return
 	end
-	local startpos, endpos = string.find(raw, "%a+", 1, false)
-	local repl = M.commands[cmd]
-	if repl == nil then
+	local threshold = M.config.threshold
+	local cmd = string.sub(raw, startpos, endpos)
+	local repl = M.commands[string.lower(cmd)]
+	if string.match(cmd, "%u") and not repl and not M.ignored[cmd] then
+		-- User id typing explicitly an uppercase command. If it is not
+		-- a tracked user-defined command and it is not an ignored command,
+		-- make it lowercase as it could be a typing mistake
+		-- This helps fixing mistakes such as :Set -> :set (but only if :Set is
+		-- not a user-defined command)
+		repl = string.lower(cmd)
+		threshold = 1
+	end
+	if not repl or #cmd < threshold then
 		return
 	end
 	cmdline[1] = string.sub(raw, 1, startpos - 1) .. repl .. string.sub(raw, endpos + 1)
