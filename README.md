@@ -17,4 +17,4 @@ require("cmdfix").setup({
 
 - Command expansion happens at the command line, just before a command is being executed or when pressing space after the command.
 - You won't be able to use lowercase user-defined commands outside the command line.
-- `:cabbrev` can be used for defining abbreviations in command line mode. However, they are rather impratical as the expansion can be triggered anywhere in the command line.
+- The native `:cabbrev` command can be used for defining abbreviations in command line mode. However, they are rather impratical as the expansion can be triggered anywhere in the command line.
