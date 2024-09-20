@@ -2,6 +2,10 @@
 
 Allow user-defined commands to be typed lowercase in command line mode. Also fixes typing mistakes such as `:W` and `:Set`, which are respectively fixed to `:w` and `:set` (but only if `W` and `Set` are not already user-defined commands)
 
+### Installation
+
+Your favorite plugin manager should work just fine.
+
 ### Configuration
 
 ```lua
@@ -12,6 +16,10 @@ require("cmdfix").setup({
     aliases = { VeryLongCommand = "vlc" },  -- custom aliases
 })
 ```
+
+### Commands shadowing
+
+If you have for example a user-defined command `:Marks`, the vim-native command `:marks` will effectively never be executed. If you want to retain the ability to execute both commands independently, just add the `Marks` command to the ignore list.
 
 ### Fixing rules
 
