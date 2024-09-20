@@ -1,0 +1,105 @@
+ *cmdfix*
+
+                                   cmdfix
+
+==============================================================================
+CONTENTS                                                      *cmdfix-contents*
+
+    1. Overview .............................. |cmdfix-overview|
+    2. Configuration ......................... |cmdfix-configuration|
+    3. Fixing Rules .......................... |cmdfix-rules|
+    4. Shadowing ............................. |cmdfix-shadowing|
+    5. Notes ................................. |cmdfix-notes|
+    6. Credits ............................... |cmdfix-credits|
+    7. License ............................... |cmdfix-license|
+
+
+==============================================================================
+1. Overview                                                    *cmdfix-overview*
+
+Allow user-defined commands to be typed lowercase in command line mode. Also
+fixes typing mistakes such as `:W` and `:Set`, which are respectively fixed to
+`:w` and `:set` (but only if `W` and `Set` are not already user-defined
+commands)
+
+
+==============================================================================
+2. Configuration                                          *cmdfix-configuration*
+
+>
+   require("cmdfix").setup({
+     enabled = true,  -- enable or disable plugin
+     threshold = 2, -- minimum characters to consider before fixing the command
+     ignore = { "Next" },  -- won't be fixed (default value)
+     aliases = { VeryLongCommand = "vlc" },  -- custom aliases
+   })
+<
+
+
+==============================================================================
+3. Fixing Rules                                                   *cmdfix-rules*
+
+- A command is fixed just before execution or after pressing space after the
+  command (this allows command completion to still work for every command).
+- A lowercase command is fixed if a matching user-defined command is found and
+  it's not ignored.
+- An uppercase command (a command containing an uppercase letter) is
+  transformed to lowercase if a matching user-defined commadn IS NOT found and
+  it's not ignored. The `threshold` option is ignored in this case.
+
+
+==============================================================================
+4. Shadowing                                                  *cmdfix-shadowing*
+
+If you have for example a user-defined command `:Marks`, the vim-native command
+`:marks` will effectively never be executed. If you want to retain the ability
+to execute both commands independently, just add the `Marks` command to the
+ignore list.
+
+
+==============================================================================
+5. Notes                                                          *cmdfix-notes*
+
+- Command expansion happens at the command line, just before a command is being
+  executed or when pressing space after the command.
+- You won't be able to use lowercase user-defined commands outside the command
+  line.
+- The native `:cabbrev` command can be used for defining abbreviations in
+  command line mode. However, they are rather impratical as the expansion can
+  be triggered anywhere in the command line.
+
+
+==============================================================================
+6. Credits                                                      *cmdfix-credits*
+
+Author: Giacomo Comitti
+Contributors: https://github.com/gcmt/cmdfix.vim/contributors
+Git repository: https://github.com/gcmt/cmdfix.vim
+
+
+==============================================================================
+7. License                                                      *cmdfix-license*
+
+MIT License
+
+Copyright (c) 2024 Giacomo Comitti
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+vim:tw=78:sw=4:ts=8:ft=help:norl:noet:
