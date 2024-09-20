@@ -7,7 +7,7 @@ M.config = {}
 M.config_defaults = {
 	enabled = true,
 	threshold = 2,
-	ignore = {},
+	ignore = { "Next" },
 	aliases = {},
 }
 

@@ -8,7 +8,7 @@ Allow user-defined commands to be typed lowercase in command line mode. Also fix
 require("cmdfix").setup({
     enabled = true,  -- enable or disable plugin
     threshold = 2, -- minimum characters to consider before fixing the command
-    ignore = { "CommandToIgnore" },  -- won't be fixed
+    ignore = { "Next" },  -- won't be fixed (default value)
     aliases = { VeryLongCommand = "vlc" },  -- custom aliases
 })
 ```
