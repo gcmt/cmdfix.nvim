@@ -13,7 +13,7 @@ require("cmdfix").setup({
 })
 ```
 
-## Fixing rules
+### Fixing rules
 
 1. A command is fixed just before execution or after pressing space after the command (this allows command completion to still work for every command).
 2. A lowercase command is fixed if a matching user-defined command is found and it's not ignored.
