@@ -21,7 +21,7 @@ require("cmdfix").setup({
 
 If you have for example a user-defined command `:Marks`, the vim-native command `:marks` will effectively never be executed. If you want to retain the ability to execute both commands independently, just add the `Marks` command to the ignore list.
 
-This plugin leverages the `CmdlineLeave` autocommand for its functionality. According to the neovim doumentation (`:help CmdlineLeave`), this autocommand is triggered even in non-interactive uses of `:`. This means this can potentially break some existing functionality (eg. you have a user-defined command with the same name of a native command). Use `<Cmd>` in your mappings instead of `:` to avoid this.
+This plugin leverages the `CmdlineLeave` autocommand for its functionality. According to the neovim doumentation (`:help CmdlineLeave`), this autocommand is triggered even in non-interactive uses of `:`. This means it might potentially break some existing functionality (eg. you have a user-defined command with the same name of a native command). It also might impact performace in some cases. Use `<Cmd>` in your mappings instead of `:` to avoid this.
 
 ### Fixing rules
 
