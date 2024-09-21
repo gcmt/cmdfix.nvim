@@ -43,9 +43,9 @@ commands)
   command (this allows command completion to still work for every command).
 - A lowercase command is fixed if a matching user-defined command is found and
   it's not ignored.
-- An uppercase command (a command containing an uppercase letter) is
-  transformed to lowercase if a matching user-defined commadn IS NOT found and
-  it's not ignored. The `threshold` option is ignored in this case.
+3. An uppercase command (a command containing an uppercase letter) is
+   transformed to lowercase if a matching user-defined command IS NOT found
+   and is not ignored. The `threshold` option is ignored in this case.
 
 
 ==============================================================================
@@ -58,10 +58,11 @@ ignore list.
 
 This plugin leverages the `CmdlineLeave` autocommand for its functionality.
 According to the neovim doumentation (`:help CmdlineLeave`), this autocommand
-is triggered even in non-interactive uses of `:`. This means this can
+is triggered even in non-interactive uses of `:`. This means it might
 potentially break some existing functionality (eg. you have a user-defined
-command with the same name of a native command). Use `<Cmd>` in your mappings
-instead of `:` to avoid this.
+command with the same name of a native command). It also might impact
+performace in some cases. Use `<Cmd>` in your mappings instead of `:` to avoid
+this.
 
 
 ==============================================================================

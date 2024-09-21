@@ -27,7 +27,7 @@ This plugin leverages the `CmdlineLeave` autocommand for its functionality. Acco
 
 1. A command is fixed just before execution or after pressing space after the command (this allows command completion to still work for every command).
 2. A lowercase command is fixed if a matching user-defined command is found and it's not ignored.
-3. An uppercase command (a command containing an uppercase letter) is transformed to lowercase if a matching user-defined commadn IS NOT found and it's not ignored. The `threshold` option is ignored in this case.
+3. An uppercase command (a command containing an uppercase letter) is transformed to lowercase if a matching user-defined command IS NOT found and is not ignored. The `threshold` option is ignored in this case.
 
 ### Notes
 
