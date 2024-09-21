@@ -21,6 +21,8 @@ require("cmdfix").setup({
 
 If you have for example a user-defined command `:Marks`, the vim-native command `:marks` will effectively never be executed. If you want to retain the ability to execute both commands independently, just add the `Marks` command to the ignore list.
 
+This plugin leverages the `CmdlineLeave` autocommand for its functionality. According to the neovim doumentation (`:help CmdlineLeave`), this autocommand is triggered even in non-interactive uses of `:`. This means this can potentially break some existing functionality (eg. you have a user-defined command with the same name of a native command). Use `<Cmd>` in your mappings instead of `:` to avoid this.
+
 ### Fixing rules
 
 1. A command is fixed just before execution or after pressing space after the command (this allows command completion to still work for every command).
@@ -29,6 +31,4 @@ If you have for example a user-defined command `:Marks`, the vim-native command 
 
 ### Notes
 
-- Command expansion happens at the command line, just before a command is being executed or when pressing space after the command.
-- You won't be able to use lowercase user-defined commands outside the command line.
 - The native `:cabbrev` command can be used for defining abbreviations in command line mode. However, they are rather impratical as the expansion can be triggered anywhere in the command line.
