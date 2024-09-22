@@ -117,7 +117,7 @@ local function setup_config(config)
 end
 
 M.setup = function(config)
-	setup_config(config)
+	setup_config(config or {})
 	if not M.config.enabled then
 		return
 	end
