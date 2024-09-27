@@ -36,7 +36,11 @@ end
 
 -- Replace the command with the canonical command
 local function fix_cmdline()
-	if vim.v.event.abort or vim.fn.expand("<afile>") ~= ":" then
+	if
+		not M.config.enabled
+		or vim.v.event.abort
+		or vim.v.event.cmdtype ~= ":"
+	then
 		return
 	end
 	local cmdpos = vim.fn.getcmdpos()
@@ -71,6 +75,9 @@ end
 
 -- Trigger command line fix when a space is pressed just after the first command
 local function fix_cmdline_on_change()
+	if not M.config.enabled then
+		return
+	end
 	local cmdline = getcmdline()
 	if #cmdline == 2 and cmdline[#cmdline] == "" then
 		fix_cmdline()
@@ -118,9 +125,6 @@ end
 
 M.setup = function(config)
 	setup_config(config or {})
-	if not M.config.enabled then
-		return
-	end
 	setup_autocommands()
 end
 
