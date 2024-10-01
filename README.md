@@ -1,6 +1,6 @@
 ## Cmdfix
 
-Allow user-defined commands to be typed lowercase in command line mode. Also fixes typing mistakes such as `:W` and `:Set`, which are respectively fixed to `:w` and `:set` (but only if `W` and `Set` are not already user-defined commands)
+Allow user-defined commands to be typed lowercase in command line mode by hijacking the command line and fixing commands case just before execution. Also fixes typing mistakes such as `:W` and `:Set`, which are respectively fixed to `:w` and `:set` (but only if `W` and `Set` are not already user-defined commands)
 
 ### Installation
 
