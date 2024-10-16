@@ -36,11 +36,7 @@ end
 
 -- Replace the command with the canonical command
 local function fix_cmdline()
-	if
-		not M.config.enabled
-		or vim.v.event.abort
-		or vim.v.event.cmdtype ~= ":"
-	then
+	if not M.config.enabled or vim.v.event.abort or vim.v.event.cmdtype ~= ":" then
 		return
 	end
 	local cmdpos = vim.fn.getcmdpos()
@@ -93,14 +89,15 @@ local function setup_autocommands()
 		desc = "Fix command when typing enter",
 		callback = fix_cmdline,
 	})
-	-- Triggered each time a charactrer is pressed at the command line
+	-- Triggered each time a character is pressed at the command line
 	vim.api.nvim_create_autocmd("CmdlineChanged", {
 		group = group,
 		desc = "Fix command after pressing space",
 		callback = fix_cmdline_on_change,
 	})
-	-- Autoimatically discover commands at statup
-	vim.api.nvim_create_autocmd("VimEnter", {
+	-- Automatically discover commands at startup.
+	-- Also handles creation of new commands by filetype plugins.
+	vim.api.nvim_create_autocmd({ "VimEnter", "Filetype" }, {
 		group = group,
 		once = true,
 		desc = "Discover user-defined commands",
